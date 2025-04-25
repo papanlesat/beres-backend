@@ -22,6 +22,7 @@ func (e *Section) TableName() string {
 	return "sections"
 }
 
+/*
 type HeroSectionDetails struct {
 	Title      string `json:"title"`
 	Subtitle   string `json:"subtitle"`
@@ -44,3 +45,4 @@ type FeatureItem struct {
 	Icon        string `json:"icon"`
 	Link        string `json:"link"`
 }
+*/

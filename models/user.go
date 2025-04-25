@@ -11,6 +11,7 @@ type User struct {
 	PasswordHash string    `gorm:"size:255;not null" json:"-"`
 	CreatedAt    time.Time `json:"created_at"`
 	UpdatedAt    time.Time `json:"updated_at"`
+	Posts        []Post    `gorm:"foreignKey:AuthorID"`
 }
 
 func (e *User) TableName() string {
