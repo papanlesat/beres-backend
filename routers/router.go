@@ -61,14 +61,14 @@ func SetupRoute() *gin.Engine {
 	{
 		menus.GET("", controllers.GetMenus)
 		menus.GET("/:id", controllers.GetMenuByID)
+		// subgroup under the same wildcard :id
+		menu := menus.Group("/:id")
+		{
+			menu.GET("/items", controllers.GetMenuItems)
+		}
 		menus.POST("", controllers.CreateMenu)
 		menus.PUT("/:id", controllers.UpdateMenu)
 		menus.DELETE("/:id", controllers.DeleteMenu)
-	}
-
-	menuItems := router.Group("/menus/:menu_id/items")
-	{
-		menuItems.GET("", controllers.GetMenuItems)
 	}
 
 	items := router.Group("/items")
