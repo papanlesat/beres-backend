@@ -33,11 +33,68 @@ func SetupRoute() *gin.Engine {
 
 	posts := router.Group("/posts")
 	{
-		posts.GET("", controllers.GetPosts)          // GET    /posts      (list)
-		posts.GET("/:id", controllers.GetPostByID)   // GET    /posts/:id  (retrieve)
-		posts.POST("", controllers.CreatePost)       // POST   /posts      (create)
-		posts.PUT("/:id", controllers.UpdatePost)    // PUT    /posts/:id  (update)
-		posts.DELETE("/:id", controllers.DeletePost) // DELETE /posts/:id  (delete)
+		posts.GET("", controllers.GetPosts)        // GET    /posts      (list)
+		posts.GET("/:id", controllers.GetPostByID) // GET    /posts/:id  (retrieve)
+	}
+
+	// Categories CRUD
+	categories := router.Group("/categories")
+	{
+		categories.GET("", controllers.GetCategories)
+		categories.GET("/:id", controllers.GetCategoryByID)
+		categories.POST("", controllers.CreateCategory)
+		categories.PUT("/:id", controllers.UpdateCategory)
+		categories.DELETE("/:id", controllers.DeleteCategory)
+	}
+
+	// Tags CRUD
+	tags := router.Group("/tags")
+	{
+		tags.GET("", controllers.GetTags)
+		tags.GET("/:id", controllers.GetTagByID)
+		tags.POST("", controllers.CreateTag)
+		tags.PUT("/:id", controllers.UpdateTag)
+		tags.DELETE("/:id", controllers.DeleteTag)
+	}
+
+	menus := router.Group("/menus")
+	{
+		menus.GET("", controllers.GetMenus)
+		menus.GET("/:id", controllers.GetMenuByID)
+		menus.POST("", controllers.CreateMenu)
+		menus.PUT("/:id", controllers.UpdateMenu)
+		menus.DELETE("/:id", controllers.DeleteMenu)
+	}
+
+	menuItems := router.Group("/menus/:menu_id/items")
+	{
+		menuItems.GET("", controllers.GetMenuItems)
+	}
+
+	items := router.Group("/items")
+	{
+		items.GET("/:id", controllers.GetMenuItemByID)
+		items.POST("", controllers.CreateMenuItem)
+		items.PUT("/:id", controllers.UpdateMenuItem)
+		items.DELETE("/:id", controllers.DeleteMenuItem)
+	}
+
+	widgets := router.Group("/widgets")
+	{
+		widgets.GET("", controllers.GetWidgets)
+		widgets.GET("/:id", controllers.GetWidgetByID)
+		widgets.POST("", controllers.CreateWidget)
+		widgets.PUT("/:id", controllers.UpdateWidget)
+		widgets.DELETE("/:id", controllers.DeleteWidget)
+	}
+
+	settings := router.Group("/settings")
+	{
+		settings.GET("", controllers.GetSettings)
+		settings.GET("/:id", controllers.GetSettingByID)
+		settings.POST("", controllers.CreateSetting)
+		settings.PUT("/:id", controllers.UpdateSetting)
+		settings.DELETE("/:id", controllers.DeleteSetting)
 	}
 
 	auth := router.Group("/")
@@ -49,6 +106,12 @@ func SetupRoute() *gin.Engine {
 			sections.POST("", controllers.CreateSection)       // POST   /sections
 			sections.PUT("/:id", controllers.UpdateSection)    // PUT    /sections/:id
 			sections.DELETE("/:id", controllers.DeleteSection) // DELETE /sections/:id
+		}
+		posts := auth.Group("/posts")
+		{
+			posts.POST("", controllers.CreatePost)       // POST   /posts      (create)
+			posts.PUT("/:id", controllers.UpdatePost)    // PUT    /posts/:id  (update)
+			posts.DELETE("/:id", controllers.DeletePost) // DELETE /posts/:id  (delete)
 		}
 	}
 
