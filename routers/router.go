@@ -30,6 +30,16 @@ func SetupRoute() *gin.Engine {
 		sections.GET("", controllers.GetSectionData)     // GET    /sections
 		sections.GET("/:id", controllers.GetSectionByID) // GET    /sections/:id
 	}
+
+	posts := router.Group("/posts")
+	{
+		posts.GET("", controllers.GetPosts)          // GET    /posts      (list)
+		posts.GET("/:id", controllers.GetPostByID)   // GET    /posts/:id  (retrieve)
+		posts.POST("", controllers.CreatePost)       // POST   /posts      (create)
+		posts.PUT("/:id", controllers.UpdatePost)    // PUT    /posts/:id  (update)
+		posts.DELETE("/:id", controllers.DeletePost) // DELETE /posts/:id  (delete)
+	}
+
 	auth := router.Group("/")
 	auth.Use(middleware.TokenAuth())
 	{
